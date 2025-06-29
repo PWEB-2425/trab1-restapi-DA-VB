@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 import alunosRouter from './routes/alunos.js';
 import cursosRouter from './routes/cursos.js';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './docs/swagger.json' assert { type: 'json' };
+
+const swaggerDocument = require('./docs/swagger.json');
 
 dotenv.config();
 
