@@ -1,58 +1,113 @@
-# Trabalho Prático #1 – Consumo e Implementação de APIs RESTful
+# Projeto Gestão de Alunos
 
-## Organização do Projeto
+## Autor
 
-- `/frontend/` – Interface web (HTML/CSS/JS)
-- `/backend/` – API real com Node.js + MongoDB
-- `/mock-server/` – API simulada com JSON-server
-- `/mock-data/` – Base de dados JSON original
-- `/tests/` – Coleção de testes Postman
+- Diogo Amorim Vilas Boas nº31860
 
-## Entregáveis
-- Código funcional
-- README.md com instruções claras
-- Links de deploy (front e back)
+## Publicado em:
+
+- **Frontend:** (https://trab1-restapi-davb-frontend.onrender.com)
+- **Backend:** (https://trab1-restapi-davb.onrender.com/alunos)
 
 ---
 
-## Como executar localmente
+## Instalação e Execução
 
-### Mock-server
-```bash
-cd mock-server
-npm install
-npm start
-```
-Acesse: http://localhost:3001/alunos
+### **Pré-requisitos**
 
-### API real (backend)
-```bash
-cd backend
-cp .env.example .env # e configure sua string do MongoDB
-npm install
-npm start
-```
-Acesse: http://localhost:3000/alunos
+- [Node.js](https://nodejs.org/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- Git (opcional)
 
-### Frontend
-Abra `frontend/index.html` em seu navegador (faça o ajuste do `API_URL` se for usar a API real)
+1. **Clona o repositório:**
+   ```bash
+   git clone <github.com/PWEB-2425/trab1-restapi-DA-VB>
+   cd <trab1-restapi-DA-VB>
+   ```
 
----
+2. **Backend:**
+   - Entra na pasta `backend`
+   - Instala as dependências:
+     ```bash
+     npm install
+     ```
+   - Cria o ficheiro `.env` com a connection string do MongoDB
+   - Corre o servidor:
+     ```bash
+     node server.js
+     ```
+   - O backend estará disponível em: (https://trab1-restapi-davb.onrender.com/alunos)
 
-## Deploy
-
-- **Frontend (Vercel):** [https://nomes-app-frontend.vercel.app](https://nomes-app-frontend.vercel.app)
-- **Backend/API (Render):** [https://nomes-app-backend.onrender.com](https://nomes-app-backend.onrender.com)
-
----
-
-## Documentação da API
-Acesse `/api-docs` no backend:
-```
-http://localhost:3000/api-docs
-```
+3. **Frontend:**
+   - O frontend está publicado em: (https://trab1-restapi-davb-frontend.onrender.com)
+   - Ou abrir o ficheiro `index.html` localmente no browser.
 
 ---
 
-## Créditos
-Desenvolvido por [Seu Nome] para a disciplina de Programação Web.
+## Descrição da Base de Dados
+
+**MongoDB**
+
+- **Base de Dados:** gestaoalunos
+- **Coleção:** alunos
+
+### Exemplo:
+```json
+{
+  "_id": "ObjectId",
+  "nome": "Diogo",
+  "apelido": "Vilas Boas",
+  "curso": "Redes",
+  "anoCurricular": 3
+}
+```
+
+## Descrição da API (Rotas)
+
+- **GET** `/alunos`  
+  Lista todos os alunos.
+
+- **POST** `/alunos`  
+  Adiciona um novo aluno. 
+
+  Exemplo:
+  ```json
+  {
+    "nome": "Maria",
+    "apelido": "Albertina",
+    "curso": "Informática",
+    "anoCurricular": 2
+  }
+  ```
+
+- **PUT** `/alunos/:id`  
+  Atualiza um aluno pelo id.
+
+- **DELETE** `/alunos/:id`  
+  Remove um aluno pelo id.
+
+- **GET** `/cursos`  
+  Lista todos os cursos disponíveis.
+
+- **Swagger** `/api-docs`  
+  Documentação interativa da API.
+
+---
+
+## Descrição do Frontend
+
+O frontend foi desenvolvido em HTML, CSS e JavaScript.  
+Permite:
+- Listar alunos existentes;
+- Adicionar, atualizar e remover alunos
+
+A comunicação com o backend é feita via `fetch` para as rotas da API acima.
+
+---
+
+## Outros conteúdos relevantes
+
+- Utilização de Render, pois este é gratuito.
+- Projeto compatível com deploy na plataforma Render.
+- O backend já está preparado para CORS, permitindo comunicação com o frontend.
+- Utilização de MongoDB Atlas para facilitar deploy e testes remotos.

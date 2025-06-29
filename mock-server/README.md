@@ -7,4 +7,4 @@ npm install
 npm start
 ```
 
-O JSON-server irá rodar em http://localhost:3001/
+O JSON-server irá rodar em https://trab1-restapi-davb-frontend.onrender.com

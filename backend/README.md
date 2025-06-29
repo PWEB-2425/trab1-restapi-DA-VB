@@ -12,7 +12,7 @@ As rotas da API serão:
 
 ## Como rodar
 
-1. Copie o arquivo `.env.example` para `.env` e preencha com sua string de conexão MongoDB Atlas.
+1. Copie o arquivo `.env.example` para `.env` com a connection string do MongoDB.
 2. Instale as dependências:
    ```bash
    npm install
@@ -21,7 +21,7 @@ As rotas da API serão:
    ```bash
    npm start
    ```
-4. Acesse a documentação Swagger em `http://localhost:3000/api-docs`
+4. Acesse a documentação Swagger em `https://trab1-restapi-davb.onrender.com/api-docs`
 
 As rotas da API serão:
 - GET/POST/PUT/DELETE `/alunos`

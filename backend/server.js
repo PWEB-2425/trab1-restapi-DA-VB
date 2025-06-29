@@ -17,10 +17,10 @@ app.use(express.json());
 app.use('/alunos', alunosRouter);
 app.use('/cursos', cursosRouter);
 
-// Swagger (opcional)
+// Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Conexão MongoDB e start
+// Conexão MongoDB
 const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGO_URL)
   .then(() => app.listen(PORT, () => console.log(`API rodando na porta ${PORT}`)))
