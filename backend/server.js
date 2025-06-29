@@ -1,11 +1,10 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import alunosRouter from './routes/alunos.js';
-import cursosRouter from './routes/cursos.js';
-import swaggerUi from 'swagger-ui-express';
-
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const alunosRouter = require('./routes/alunos');
+const cursosRouter = require('./routes/cursos');
+const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
 
 dotenv.config();
