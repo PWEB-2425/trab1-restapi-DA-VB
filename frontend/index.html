@@ -1,1 +1,78 @@
-<!-- Página CRUD de Alunos -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Gestão de Alunos</title>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <h1>Gestão de Alunos</h1>
+    <div>
+    <input id="nome" placeholder="Nome" />
+    <input id="apelido" placeholder="Apelido" />
+    <input id="curso" placeholder="Curso" />
+    <input id="anoCurricular" type="number" min="1" max="5" placeholder="Ano" />
+    <button onclick="adicionarAluno()">Adicionar Aluno</button>
+  </div>
+  <hr />
+  <div id="listanomes"></div>
+  <script>
+    const API_URL = 'http://localhost:3000/alunos';
+
+    function refreshAlunos() {
+      fetch(API_URL)
+        .then(r => r.json())
+        .then(data => {
+          const list = document.getElementById('alunos-list');
+          list.innerHTML = '';
+          data.forEach(aluno => {
+            const div = document.createElement('div');
+            div.className = 'aluno';
+            div.innerHTML = `
+              ${aluno.nome} ${aluno.apelido} (${aluno.curso} - Ano ${aluno.anoCurricular})
+              <span class="actions">
+                <button onclick="editarAluno(${aluno.id})">Editar</button>
+                <button onclick="apagarAluno(${aluno.id})">Apagar</button>
+              </span>
+            `;
+            list.appendChild(div);
+          });
+        });
+    }
+
+    function adicionarAluno() {
+      const nome = document.getElementById('nome').value;
+      const apelido = document.getElementById('apelido').value;
+      const curso = document.getElementById('curso').value;
+      const anoCurricular = parseInt(document.getElementById('anoCurricular').value);
+
+      fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, apelido, curso, anoCurricular })
+      }).then(refreshAlunos);
+    }
+
+    function apagarAluno(id) {
+      fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+        .then(refreshAlunos);
+    }
+
+    function editarAluno(id) {
+      const nome = prompt('Novo nome:');
+      const apelido = prompt('Novo apelido:');
+      const curso = prompt('Novo curso:');
+      const anoCurricular = parseInt(prompt('Novo ano curricular:'));
+      fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, apelido, curso, anoCurricular })
+      }).then(refreshAlunos);
+    }
+
+    refreshAlunos();
+  </script>
+</body>
+</html>

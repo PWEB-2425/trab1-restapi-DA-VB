@@ -1,0 +1,44 @@
+{
+  "info": {
+    "name": "Alunos e Cursos API",
+    "_postman_id": "b2e5e1f5-5bfa-4212-98be-9c1e0a5d6c1e",
+    "description": "Coleção para testar endpoints de alunos e cursos.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Listar Alunos",
+      "request": { "method": "GET", "header": [], "url": { "raw": "http://localhost:3000/alunos", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["alunos"] } }
+    },
+    {
+      "name": "Criar Aluno",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Exemplo\",\n  \"apelido\": \"Teste\",\n  \"curso\": \"Engenharia Informática\",\n  \"anoCurricular\": 3\n}" },
+        "url": { "raw": "http://localhost:3000/alunos", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["alunos"] }
+      }
+    },
+    {
+      "name": "Atualizar Aluno",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"nome\": \"NovoNome\",\n  \"apelido\": \"NovoApelido\",\n  \"curso\": \"Matemática\",\n  \"anoCurricular\": 2\n}" },
+        "url": { "raw": "http://localhost:3000/alunos/{{alunoId}}", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["alunos", "{{alunoId}}"] }
+      }
+    },
+    {
+      "name": "Apagar Aluno",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": { "raw": "http://localhost:3000/alunos/{{alunoId}}", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["alunos", "{{alunoId}}"] }
+      }
+    },
+    {
+      "name": "Listar Cursos",
+      "request": { "method": "GET", "header": [], "url": { "raw": "http://localhost:3000/cursos", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["cursos"] } }
+    }
+  ]
+}
