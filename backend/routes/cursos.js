@@ -1,8 +1,8 @@
-import express from 'express';
-import { listarCursos } from '../controllers/cursoController.js';
+const express = require('express');
+const { listarCursos } = require('../controllers/cursoController');
 
 const router = express.Router();
 
 router.get('/', listarCursos);
 
-export default router;
+module.exports = router;

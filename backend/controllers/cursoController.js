@@ -1,6 +1,10 @@
-import Curso from '../models/Curso.js';
+const Curso = require('../models/Curso');
 
-export const listarCursos = async (req, res) => {
+const listarCursos = async (req, res) => {
   const cursos = await Curso.find();
   res.json(cursos);
+};
+
+module.exports = {
+  listarCursos
 };
