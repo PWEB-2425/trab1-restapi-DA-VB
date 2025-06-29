@@ -1,153 +1,113 @@
-# Trabalho Prático #1
+# Projeto Gestão de Alunos
 
-## Consumo e Implementação de APIs RESTful
+## Autor
 
-### Objetivo Geral
+- Diogo Amorim Vilas Boas nº31860
 
-Consolidar os conhecimentos em desenvolvimento web com foco na criação, consumo e implementação de APIs RESTful utilizando tecnologias do ecossistema JavaScript:
+## Publicado em:
 
-- Node.js + Express
-- MongoDB / MongoDB Atlas
-- JSON-Server
-- Fetch API
-- Swagger (opcional)
-
-O projeto simula o ciclo completo de desenvolvimento de uma aplicação web com front-end e back-end separados, incluindo testes e deploy.
+- **Frontend:** (https://trab1-restapi-davb-frontend.onrender.com)
+- **Backend:** (https://trab1-restapi-davb.onrender.com/alunos)
 
 ---
 
-## Partes do Trabalho
+## Instalação e Execução
 
-### Parte 1: Estruturação da Base de Dados (JSON)
+### **Pré-requisitos**
 
-- Criar um ficheiro `bd.json` com:
+- [Node.js](https://nodejs.org/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- Git (opcional)
 
-  - Lista de alunos: `nome`, `apelido`, `curso`, `anoCurricular`
-  - Lista de cursos: `nomeDoCurso`
+1. **Clona o repositório:**
+   ```bash
+   git clone <github.com/PWEB-2425/trab1-restapi-DA-VB>
+   cd <trab1-restapi-DA-VB>
+   ```
 
-- 📁 Diretório sugerido: `/mock-data/`
-- 📄 Entregável: `bd.json`
+2. **Backend:**
+   - Entra na pasta `backend`
+   - Instala as dependências:
+     ```bash
+     npm install
+     ```
+   - Cria o ficheiro `.env` com a connection string do MongoDB
+   - Corre o servidor:
+     ```bash
+     node server.js
+     ```
+   - O backend estará disponível em: (https://trab1-restapi-davb.onrender.com/alunos)
 
----
-
-### Parte 2: API Simulada com JSON-Server + Testes
-
-- Configurar e iniciar `json-server` com `bd.json`
-- Testar os endpoints com Postman (CRUD de alunos, leitura de cursos)
-- Exportar a coleção de testes
-
-- 📁 Diretório sugerido: `/mock-server/`
-- 📄 Entregáveis:
-  - Código de configuração (`package.json`, script json-server)
-  - Coleção `.json` do Postman em `/tests/`
-
----
-
-### Parte 3: Interface Web (CRUD de Alunos)
-
-- Desenvolver uma página web funcional para gerir alunos:
-  - Ver alunos
-  - Adicionar aluno
-  - Editar aluno
-  - Apagar aluno
-- Utilizar `Fetch API` e programação assíncrona
-
-- 📁 Diretório sugerido: `/frontend/`
-- 📄 Entregável: Página funcional conectada à API simulada
+3. **Frontend:**
+   - O frontend está publicado em: (https://trab1-restapi-davb-frontend.onrender.com)
+   - Ou abrir o ficheiro `index.html` localmente no browser.
 
 ---
 
-### Parte 4: API RESTful real (Node.js + Express + MongoDB Atlas)
+## Descrição da Base de Dados
 
-- Migrar os dados para o MongoDB Atlas
-- Implementar a API Express com endpoints equivalentes ao JSON-server
-- Manter a estrutura RESTful
-- Sugestão : usar mongoose a abordagem MVC (bónus 5%)
+**MongoDB**
 
-- 📁 Diretório sugerido: `/backend/`
-- 📄 Entregável: Código funcional da API com instruções
+- **Base de Dados:** gestaoalunos
+- **Coleção:** alunos
 
----
-
-### Parte 5: Deploy da Aplicação
-
-- Fazer deploy do front-end no [Vercel](https://vercel.com)
-- (Opcional) Fazer deploy da API no [Render](https://render.com)
-- Adaptar o front-end para consumir a nova API
-
-📄 Incluir no `README.md`:
-
-- URL pública do front-end
-- URL da API real
-- 📄 Entregável: Links funcionais no repositório
-
----
-
-### Parte 6 (Bonificação): Documentação da API
-
-- Utilizar Swagger para documentar os endpoints da API
-- Incluir rota `/api-docs` na aplicação
-
-- 📁 Diretório sugerido: `/backend/docs/`
-- 📄 Entregável: Swagger funcional e acessível
-
----
-
-## Organização do Projeto
-
-```text
-projeto-raiz/
-│
-├── /frontend/ ← Interface web (HTML/CSS/JS)
-├── /backend/ ← API RESTful com Node.js + MongoDB
-├── /mock-server/ ← JSON-server configurado
-├── /mock-data/ ← Base de dados JSON original
-├── /tests/ ← Coleção de testes Postman
-├── README.md ← Instruções, links e notas
-└── .gitignore, etc.
+### Exemplo:
+```json
+{
+  "_id": "ObjectId",
+  "nome": "Diogo",
+  "apelido": "Vilas Boas",
+  "curso": "Redes",
+  "anoCurricular": 3
+}
 ```
 
----
+## Descrição da API (Rotas)
 
-## Sugestão de Branches
+- **GET** `/alunos`  
+  Lista todos os alunos.
 
-| Branch     | Descrição                        |
-| ---------- | -------------------------------- |
-| `main`     | Versão estável e final           |
-| `dev`      | Desenvolvimento geral            |
-| `frontend` | Interface e interação do usuário |
-| `api`      | API real (Node + MongoDB)        |
-| `deploy`   | Adaptações para Vercel/Render    |
+- **POST** `/alunos`  
+  Adiciona um novo aluno. 
 
----
+  Exemplo:
+  ```json
+  {
+    "nome": "Maria",
+    "apelido": "Albertina",
+    "curso": "Informática",
+    "anoCurricular": 2
+  }
+  ```
 
-## Critérios de Avaliação
+- **PUT** `/alunos/:id`  
+  Atualiza um aluno pelo id.
 
-| Critério                         | Peso |
-| -------------------------------- | ---- |
-| Base de dados JSON correta       | 10%  |
-| API simulada e testada (Postman) | 10%  |
-| Funcionalidade do front-end      | 30%  |
-| Qualidade da API real (Node.js)  | 30%  |
-| Integração front-end/backend     | 10%  |
-| Deploy funcional                 | 10%  |
-| Bonificação (MVC)                | +5%  |
-| Bonificação (Swagger)            | +5%  |
+- **DELETE** `/alunos/:id`  
+  Remove um aluno pelo id.
 
----
+- **GET** `/cursos`  
+  Lista todos os cursos disponíveis.
 
-## Entrega
-
-- Entrega via **GitHub Classroom**.
-- O repositório deve conter:
-  - Código funcional
-  - README.md com instruções claras
-  - Links de deploy (front e opcionalmente back)
+- **Swagger** `/api-docs`  
+  Documentação interativa da API.
 
 ---
 
-### Repositório Base
+## Descrição do Frontend
 
-Usa o repositório template inicial fornecido no GitHub Classroom.
-# TWT1RESTAPI
-# TRAB1_TEMPLATE
+O frontend foi desenvolvido em HTML, CSS e JavaScript.  
+Permite:
+- Listar alunos existentes;
+- Adicionar, atualizar e remover alunos
+
+A comunicação com o backend é feita via `fetch` para as rotas da API acima.
+
+---
+
+## Outros conteúdos relevantes
+
+- Utilização de Render, pois este é gratuito.
+- Projeto compatível com deploy na plataforma Render.
+- O backend já está preparado para CORS, permitindo comunicação com o frontend.
+- Utilização de MongoDB Atlas para facilitar deploy e testes remotos.
