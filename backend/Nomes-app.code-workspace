@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "Nomes-app",
+			"path": "../Nomes-app"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Nomes-app"
+	}
+}

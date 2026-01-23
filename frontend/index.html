@@ -1,1 +1,128 @@
-<!-- Página CRUD de Alunos -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Gestão de Alunos</title>
+</head>
+<body>
+  <h1>Gestão de Alunos</h1>
+  <div class="form-container">
+    <input id="nome" placeholder="Nome" />
+    <input id="apelido" placeholder="Apelido" />
+    <input id="curso" placeholder="Curso" />
+    <input id="anoCurricular" type="number" min="1" max="5" placeholder="Ano" />
+    <button onclick="adicionarAluno()">Adicionar Aluno</button>
+  </div>
+  <hr />
+  <div id="alunos-list"></div>
+  <script>
+    const API_URL = 'https://trab1-restapi-davb.onrender.com/alunos';
+
+    function refreshAlunos() {
+      fetch(API_URL)
+        .then(r => r.json())
+        .then(data => {
+          const list = document.getElementById('alunos-list');
+          list.innerHTML = '';
+          if (data.length === 0) {
+            list.innerHTML = "<p class='vazio'>Nenhum aluno cadastrado.</p>";
+            return;
+          }
+          const table = document.createElement('table');
+          table.className = "alunos-table";
+          table.innerHTML = `
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Apelido</th>
+                <th>Curso</th>
+                <th>Ano</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.map(aluno => `
+                <tr>
+                  <td>${aluno.nome}</td>
+                  <td>${aluno.apelido}</td>
+                  <td>${aluno.curso}</td>
+                  <td>${aluno.anoCurricular}</td>
+                  <td>
+                    <button class="editar" onclick="editarAluno('${aluno._id}')">Editar</button>
+                    <button class="apagar" onclick="apagarAluno('${aluno._id}')">Apagar</button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          `;
+          list.appendChild(table);
+        })
+        .catch(() => {
+          document.getElementById('alunos-list').innerHTML = "<p>Erro ao carregar alunos.</p>";
+        });
+    }
+
+    function adicionarAluno() {
+      const nome = document.getElementById('nome').value.trim();
+      const apelido = document.getElementById('apelido').value.trim();
+      const curso = document.getElementById('curso').value.trim();
+      const anoCurricular = parseInt(document.getElementById('anoCurricular').value);
+
+      if (!nome || !apelido || !curso || !anoCurricular) {
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+      fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, apelido, curso, anoCurricular })
+      })
+      .then(resp => {
+        if (!resp.ok) throw new Error();
+        document.getElementById('nome').value = '';
+        document.getElementById('apelido').value = '';
+        document.getElementById('curso').value = '';
+        document.getElementById('anoCurricular').value = '';
+        refreshAlunos();
+      })
+      .catch(() => alert("Erro ao adicionar aluno!"));
+    }
+
+    function apagarAluno(id) {
+      if (!confirm("Tem certeza que deseja apagar este aluno?")) return;
+      fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+        .then(resp => {
+          if (!resp.ok) throw new Error();
+          refreshAlunos();
+        })
+        .catch(() => alert("Erro ao apagar aluno!"));
+    }
+
+    function editarAluno(id) {
+      const nome = prompt('Novo nome:');
+      const apelido = prompt('Novo apelido:');
+      const curso = prompt('Novo curso:');
+      const anoCurricular = parseInt(prompt('Novo ano curricular:'));
+      if (!nome || !apelido || !curso || !anoCurricular) {
+        alert("Todos os campos são obrigatórios!");
+        return;
+      }
+      fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, apelido, curso, anoCurricular })
+      })
+      .then(resp => {
+        if (!resp.ok) throw new Error();
+        refreshAlunos();
+      })
+      .catch(() => alert("Erro ao editar aluno!"));
+    }
+
+    refreshAlunos();
+  </script>
+</body>
+</html>

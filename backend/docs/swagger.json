@@ -1,0 +1,65 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Alunos e Cursos",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/alunos": {
+      "get": {
+        "summary": "Listar todos os alunos",
+        "responses": {
+          "200": {
+            "description": "Lista de alunos"
+          }
+        }
+      },
+      "post": {
+        "summary": "Criar novo aluno",
+        "responses": {
+          "201": {
+            "description": "Aluno criado"
+          }
+        }
+      }
+    },
+    "/alunos/{id}": {
+      "put": {
+        "summary": "Atualizar aluno",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Aluno atualizado" }
+        }
+      },
+      "delete": {
+        "summary": "Apagar aluno",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Aluno apagado" }
+        }
+      }
+    },
+    "/cursos": {
+      "get": {
+        "summary": "Listar todos os cursos",
+        "responses": {
+          "200": { "description": "Lista de cursos" }
+        }
+      }
+    }
+  }
+}
